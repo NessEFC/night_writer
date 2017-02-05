@@ -1,10 +1,12 @@
 require "minitest/pride"
 require "minitest/autorun"
 require "./lib/dictionary"
+require "./lib/reader_file"
 
 class DictionaryTest < Minitest::Test
 
   def setup
+    skip
     
   end
 
@@ -24,7 +26,8 @@ class DictionaryTest < Minitest::Test
     assert_equal "e", letters_to_numbers.key("5")
   end
 
-  def load_english_file_
+  def load_english_file
+    skip
     File.open("lib/english.txt", "r").read
   end
 
@@ -36,6 +39,5 @@ class DictionaryTest < Minitest::Test
     skip
 
   end
-
 
 end
