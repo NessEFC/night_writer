@@ -1,5 +1,4 @@
 require 'pry'
-#require_relative 'file_reader'
 
 class ToBraille
   attr_reader :input_text
@@ -8,25 +7,38 @@ class ToBraille
     @input_text = input_text
   end
 
-  def split
+  def split_text
     input_text.chars
   end
 
   def translate
     top, mid, bottom = [], [], []
-    split.each do |character|
+    split_text.each do |character|
+      # if capital, call a method
+      # elsif number, call a method
+      # else
       top << alphabet[character][0]
       mid << alphabet[character][1]
       bottom << alphabet[character][2]
     end
     total_array = []
-    output(total_array << top.join << mid.join << bottom.join, top.length)
+    total_array << top.join << "\n" << mid.join << "\n" << bottom.join << "\n"
+    total_array.join
+    # output(total_array << top.join << "\n" << mid.join << "\n" << bottom.join << "\n", top.length * 2)
   end
 
-  def output(output, length)
-    output.join
-    #output.insert(-1, '\n')
-  end
+  # def output(output, length)
+  #   braille_three_lines = output.join
+
+    # length_counter = length
+    # until length_counter > output.join.length do
+    #   braille_three_lines = braille_three_lines.insert(length_counter, "\n")
+    #   length_counter += length
+    #   binding.pry
+    # end
+    #braille_three_lines
+    # if output is over 80 characters, insert the break after 80, else, do it the other way
+  #end
 
   def alphabet
     {"a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
@@ -40,3 +52,6 @@ class ToBraille
     "capital" => ["..", "..", ".0"], "number" => [".0", ".0", "00"], " " => ["..","..",".."]}
   end
 end
+
+# braille = ToBraille.new("hello world")
+# puts braille.translate
