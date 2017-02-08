@@ -13,21 +13,18 @@ class ToBraille
     end
   end
 
-  # def capital_check
-  #   self.scan /\p{Upper}/
-  #
-  #   # if input_text.downcase != input_text
-  #   #   # a capital letter exists so do something
-  #
-  # end
+  def capital_check
+    input_text.gsub!(/[A-Z]/) { |letter| "^" + letter.downcase }
+    prepare_text
+  end
 
   def prepare_text
-    number_of_lines = (input_text.length.to_f / 80).ceil
+    number_of_lines = (input_text.length.to_f / 40).ceil
     if number_of_lines > 1
       all_lines = []
       number_of_lines.times do |line|
-        if input_text.length > 80
-          all_lines[line] = input_text.slice!(0..79)
+        if input_text.length > 40
+          all_lines[line] = input_text.slice!(0..39)
         else
           all_lines[line] = input_text.slice!(0..(input_text.length - 1))
         end
@@ -48,21 +45,7 @@ class ToBraille
     total_array = []
     total_array << top.join << "\n" << mid.join << "\n" << bottom.join << "\n"
     total_array.join
-    # output(total_array << top.join << "\n" << mid.join << "\n" << bottom.join << "\n", top.length * 2)
   end
-
-  # def output(output, length)
-  #   braille_three_lines = output.join
-
-    # length_counter = length
-    # until length_counter > output.join.length do
-    #   braille_three_lines = braille_three_lines.insert(length_counter, "\n")
-    #   length_counter += length
-    #   binding.pry
-    # end
-    #braille_three_lines
-    # if output is over 80 characters, insert the break after 80, else, do it the other way
-  #end
 
   def alphabet
     {"a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
@@ -73,6 +56,6 @@ class ToBraille
     "u" => ["0.","..","00"], "v" => ["0.","0.","00"], "w" => [".0","00",".0"], "x" => ["00","..","00"],
     "y" => ["00",".0","00"], "z" => ["0.",".0","00"], "!" => ["..","00","0."], "'" => ["..","..","0."],
     "," => ["..","0.",".."], "-" => ["..","..","00"], "." => ["..","00",".0"], "?" => ["..","0.","00"],
-    "capital" => ["..", "..", ".0"], "number" => [".0", ".0", "00"], " " => ["..","..",".."]}
+    "^" => ["..", "..", ".0"], "number" => [".0", ".0", "00"], " " => ["..","..",".."]}
   end
 end
