@@ -4,7 +4,7 @@ require 'pry'
 input_text = File.read("./lib/" + ARGV[0]).chomp
 contents = ToBraille.new(input_text)
 
-output_text = contents.translate
+output_text = contents.prepare_text
 File.write("./lib/" + ARGV[1], output_text)
 
 def text_length(output_text)

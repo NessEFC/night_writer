@@ -1,22 +1,46 @@
 require 'pry'
 
 class ToBraille
-  attr_reader :input_text
+  attr_accessor :input_text
 
   def initialize(input_text)
     @input_text = input_text
   end
 
-  def split_text
-    input_text.chars
+  def split_text(all_lines)
+    all_lines.map do |element|
+      translate(element.chars)
+    end
   end
 
-  def translate
+  # def capital_check
+  #   self.scan /\p{Upper}/
+  #
+  #   # if input_text.downcase != input_text
+  #   #   # a capital letter exists so do something
+  #
+  # end
+
+  def prepare_text
+    number_of_lines = (input_text.length.to_f / 80).ceil
+    if number_of_lines > 1
+      all_lines = []
+      number_of_lines.times do |line|
+        if input_text.length > 80
+          all_lines[line] = input_text.slice!(0..79)
+        else
+          all_lines[line] = input_text.slice!(0..(input_text.length - 1))
+        end
+      end
+      return split_text(all_lines).join("\n")
+    else
+      return translate(input_text.chars)
+    end
+  end
+
+  def translate(letters)
     top, mid, bottom = [], [], []
-    split_text.each do |character|
-      # if capital, call a method
-      # elsif number, call a method
-      # else
+    letters.each do |character|
       top << alphabet[character][0]
       mid << alphabet[character][1]
       bottom << alphabet[character][2]
@@ -52,6 +76,3 @@ class ToBraille
     "capital" => ["..", "..", ".0"], "number" => [".0", ".0", "00"], " " => ["..","..",".."]}
   end
 end
-
-# braille = ToBraille.new("hello world")
-# puts braille.translate
