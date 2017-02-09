@@ -12,17 +12,27 @@ class ToEnglish
       reverse_alphabet[letter]
     end
     english = translated_braille.join
-    capital_check(english)
+    final_english = capital_check(english)
   end
 
   def capital_check(english_text)
-    english_text.gsub!(/\^./) { |letter| letter.upcase }
-    english_text.gsub!(/\^/) { |letter| "" }
+    check = english_text.gsub(/\^./) { |letter| letter.upcase }
+    check_2 = check.gsub(/\^/) { |letter| "" }
   end
 
   def split_lines
-    input_braille.split("\n")
+    line_collector = input_braille.split("\n")
+    while line_collector.length > 3
+      line_collector[0] += line_collector[3]
+      line_collector.slice!(3)
+      line_collector[1] += line_collector[3]
+      line_collector.slice!(3)
+      line_collector[2] += line_collector[3]
+      line_collector.slice!(3)
+    end
+    line_collector
   end
+
 
   def braille_characters
     letter_1 = split_lines[0].scan(/../)
@@ -69,5 +79,4 @@ class ToEnglish
       [".0", ".0", "00"]=>"number",
       ["..", "..", ".."]=>" " }
   end
-
 end

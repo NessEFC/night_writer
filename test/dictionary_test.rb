@@ -7,7 +7,7 @@ class DictionaryTest < Minitest::Test
 
   def setup
     skip
-    
+
   end
 
   def test_that_hashes_load
