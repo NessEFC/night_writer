@@ -1,7 +1,7 @@
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/to_braille'
+require './lib/to_braille'
 
 class ToBrailleTest < Minitest::Test
   def test_does_it_output_my_message
