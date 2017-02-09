@@ -5,11 +5,6 @@ require "./lib/reader_file"
 
 class DictionaryTest < Minitest::Test
 
-  def setup
-    skip
-
-  end
-
   def test_that_hashes_load
     refute_nil english_to_braile_hash
     refute_nil letters_to_numbers
@@ -25,19 +20,4 @@ class DictionaryTest < Minitest::Test
     assert_equal "7", letters_to_numbers["g"]
     assert_equal "e", letters_to_numbers.key("5")
   end
-
-  def load_english_file
-    skip
-    File.open("lib/english.txt", "r").read
-  end
-
-  def test_input_file
-    skip
-  end
-
-  def test_message_string_split_to_array
-    skip
-
-  end
-
 end
