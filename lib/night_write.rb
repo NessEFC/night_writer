@@ -15,4 +15,4 @@ def text_length(output_text)
   end
 end
 
-puts "Created ‘#{ARGV[1]}’ containing #{text_length(output_text)} characters"
+puts "Created ‘#{ARGV[1]}’ containing #{text_length(output_text)} characters."

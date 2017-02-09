@@ -29,7 +29,7 @@ class ToBraille
           all_lines[line] = input_text.slice!(0..(input_text.length - 1))
         end
       end
-      return split_text(all_lines).join("\n")
+      return split_text(all_lines).join
     else
       return translate(input_text.chars)
     end
