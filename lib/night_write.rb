@@ -8,11 +8,7 @@ output_text = contents.capital_check
 File.write("./lib/" + ARGV[1], output_text)
 
 def text_length(output_text)
-  if output_text.end_with?("\n")
-    output_text.length - 1
-  else
-    output_text.length
-  end
+  output_text.length - (output_text.scan(/\n/).count)
 end
 
 puts "Created ‘#{ARGV[1]}’ containing #{text_length(output_text)} characters."
